@@ -9,7 +9,7 @@ from models.transaction import Transaction
 
 app = Flask(__name__)
 
-with open('/etc/config.json') as config_file:
+with open('etc/config.json') as config_file:
   config = json.load(config_file)
 app.config['SECRET_KEY'] = config.get('SECRET_KEY')
 app.config['MONGODB_DATABASE_URI'] = config.get("MONGODB_DATABASE_URI")
