@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="jumbotron">
+  <h1 class="display-4">Hello, Ido!</h1>
+  <p class="lead">This is a simple app that is main target is to make you track all of your expences.</p>
+  <hr class="my-4">
+  <p>It uses a Linode cloud ubunto server that runs NGINX and Gunicorn in order to run with flask. The app saves all the data thet you enter to a mongodb app</p>
+  <p class="lead">
+    <a href="/add_transactions"><button class="btn btn-danger btn-lg m-1">Add an Expense</button></a>
+    <a href="/all"><button class="btn btn-outline-danger btn-lg m-1">See all Expences</button></a>
+  </p>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trans in transactions %}
+      <tr>
+        <th scope="row">{{transactions.index(trans)}}</th>
+        <td>{{trans.date.date()}}</td>
+        <td>{{trans.amount*(-1)}}</td>
+        <td>{{trans.description}}</td>
+        <td>{{trans.category}}</td>
+      </tr>
+      {% endfor %}       
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
