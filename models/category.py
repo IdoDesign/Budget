@@ -8,11 +8,7 @@ class Category:
         self.name = name
 
     def json(self):
-        dic = {
-            '_id': str(self._id),
-            'name': self.name
-        }
-        return dic
+        return self.__dict__
 
     @classmethod
     def all(cls):

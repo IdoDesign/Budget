@@ -37,7 +37,9 @@ class User:
         user_data = Database.find_one("users", {"email": email})
         if user_data:
             return False
-        User(email, Utils.hash_password(password)).save_to_mongo()
+        user = User(email, Utils.hash_password(password))
+        user.save_to_mongo()
+        return user._id
     
     @staticmethod
     def is_login_valid(email, password):
@@ -46,5 +48,5 @@ class User:
             return False
         if not Utils.check_hashed_password(password, user_data['password_hash']):
             return False
-        return True
+        return user_data['_id']
 
