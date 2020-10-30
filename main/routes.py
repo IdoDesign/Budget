@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
+import flask
+from flask import session
 
-main = Blueprint('main', __name__)
+main = flask.Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    return render_template('home.html')
+    return flask.render_template('home.html')

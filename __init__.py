@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request
-from flask_bcrypt import Bcrypt
+import flask
 import datetime
 import json
 import sys
@@ -15,14 +14,12 @@ from users.routes import users
 
 
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 with open('etc/config.json') as config_file:
   config = json.load(config_file)
 app.config['SECRET_KEY'] = config.get('SECRET_KEY')
 app.config['MONGODB_DATABASE_URI'] = config.get("MONGODB_DATABASE_URI")
-
-bcrypt = Bcrypt(app)
 
 @app.before_first_request
 def init_db():
