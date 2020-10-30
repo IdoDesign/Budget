@@ -1,4 +1,4 @@
 {
     "SECRET_KEY": "IdoTarazi",
-    "MONGODB_DATABASE_URI": "mongodb+srv://mongoAdmin:Aa123456@cluster0.bwucu.gcp.mongodb.net/Financing?authSource=admin&replicaSet=atlas-kth7cw-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass%20Community&retryWrites=true&ssl=true"
+    "MONGODB_DATABASE_URI": "mongodb+srv://mongoAdmin:Aa123456@cluster0.bwucu.gcp.mongodb.net/TestFinancing?authSource=admin&replicaSet=atlas-kth7cw-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass%20Community&retryWrites=true&ssl=true"
 }
