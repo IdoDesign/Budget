@@ -1,6 +1,7 @@
 import flask
 import datetime
 import json
+from functools import wraps
 import sys
 sys.path.append('/home/flask_app_project/Budget')
 
@@ -20,6 +21,8 @@ with open('etc/config.json') as config_file:
   config = json.load(config_file)
 app.config['SECRET_KEY'] = config.get('SECRET_KEY')
 app.config['MONGODB_DATABASE_URI'] = config.get("MONGODB_DATABASE_URI")
+
+
 
 @app.before_first_request
 def init_db():

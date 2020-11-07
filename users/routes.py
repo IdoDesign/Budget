@@ -10,7 +10,7 @@ def register():
         password = flask.request.form['password']
         register = User.register(email, password)
         if register:
-            flask.session['user'] = User.get_by_email(email)
+            flask.session['user'] = User.get_by_email(email)._id
             return flask.redirect('/')
     return flask.render_template('register.html')
     
@@ -22,7 +22,7 @@ def login():
         password = flask.request.form['password']
         login = User.is_login_valid(email, password)
         if login:
-            flask.session['user'] = email
+            flask.session['user'] = User.get_by_email(email)._id
             return flask.redirect('/')
     return flask.render_template('login.html')
 
