@@ -2,14 +2,16 @@ import uuid
 from common.database import Database
 from common.utils import Utils
 class User:
-    def __init__(self,email, password_hash, _id=None):
+    def __init__(self,name, email, password_hash, _id=None):
         self._id = uuid.uuid4().hex if _id is None else _id
+        self.name = name
         self.email = email
         self.password_hash = password_hash
 
     def json(self):
         return {
             '_id': self._id,
+            'name': self.name,
             'email': self.email,
             'password_hash': self.password_hash
         }  
@@ -33,11 +35,11 @@ class User:
         Database.remove("users", {'_id': self._id})
 
     @staticmethod
-    def register(email, password):
+    def register(email,name, password):
         user_data = Database.find_one("users", {"email": email})
         if user_data:
             return False
-        user = User(email, Utils.hash_password(password))
+        user = User(name, email, Utils.hash_password(password))
         user.save_to_mongo()
         return user._id
     
@@ -48,5 +50,5 @@ class User:
             return False
         if not Utils.check_hashed_password(password, user_data['password_hash']):
             return False
-        return user_data['_id']
+        return user_data
 

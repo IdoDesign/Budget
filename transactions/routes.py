@@ -25,13 +25,13 @@ def add_transaction():
         amount = float(flask.request.form["amount"])*-1
         cat = flask.request.form["category"]
         date= datetime.datetime.fromisoformat(flask.request.form["date"])
-        Transaction(date, amount, desc, cat, flask.session['user']).save_to_mongo()
+        Transaction(date, amount, desc, cat, flask.session['user']['_id']).save_to_mongo()
     return flask.render_template('add_transactions.html', categories=categories)
 
 @transactions.route('/all')
 @login_required
 def all_transactions():
-    transactions=Transaction.get_by_user(flask.session['user'])
+    transactions=Transaction.get_by_user(flask.session['user']['_id'])
     for item in transactions:
         item.category = Category.get_by_id(item.category).name
     return flask.render_template('all_transactions.html', transactions=transactions)
