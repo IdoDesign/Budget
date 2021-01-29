@@ -1,8 +1,8 @@
 import uuid
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+from flask_sqlalchemy import SQLAlchemy
+from project import db
+
 
 #we'll add classes here
 class User(db.Model):
