@@ -1,5 +1,5 @@
 import uuid
-
+from project.common.utils import Utils
 from flask_sqlalchemy import SQLAlchemy
 from project import db
 
@@ -18,6 +18,23 @@ class User(db.Model):
         self.name = name
         self.email = email
         self.password_hash = password_hash
+    
+    @staticmethod
+    def register(email, name, password):
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return False
+        user.save()
+        return user
+
+    @staticmethod
+    def is_login_valid(email, password):
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return False
+        if not Utils.check_hashed_password(password, user.password_hash):
+            return False
+        return user
 
 class Category(db.Model):
     __tablename__= 'categories'
@@ -28,7 +45,15 @@ class Category(db.Model):
     def __init__(self,  name, _id=None):
         self._id = uuid.uuid4().hex if _id is None else _id
         self.name = name
-    
+
+    @staticmethod
+    def all():
+        return Category.query.all()
+        
+    @staticmethod
+    def get_by_id(_id):
+        return Category.query.filter_by(_id=_id).first()
+
 class Transaction(db.Model):
     __tablename__= 'transactions'
     _id = db.Column(db.String(250), primary_key=True)
@@ -45,3 +70,11 @@ class Transaction(db.Model):
         self.description = description
         self.category = category
         self.user_id = user_id
+    
+    @staticmethod
+    def get_by_user(user_id):
+        return Transaction.query.filter_by(user_id=user_id)
+        
+    @staticmethod
+    def get_by_id(_id):
+        return Transaction.query.filter_by(_id=_id).first()

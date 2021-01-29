@@ -28,7 +28,7 @@ def populateTransactions():
     with open ('transactions.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            db.session.add(Transaction(_id=row['_id'], date=row["date"], amount=float(row["amount"])*(-1), description= row["description"], category=row["category"], user_id=row["user_id"]))
+            db.session.add(Transaction(_id=row['_id'], date=row["date"], amount=(row["amount"])*(-1), description= row["description"], category=row["category"], user_id=row["user_id"]))
     db.session.commit()
 
 populateTransactions()
