@@ -82,5 +82,9 @@ class Transaction(db.Model):
     @staticmethod
     def get_by_id(_id):
         return Transaction.query.filter_by(_id=_id).first()
+    
+    @staticmethod
+    def get_by_user_sorted(user_id):
+        return db.session.query(Transaction, Category).filter_by(user_id=user_id).join(Category).order_by(Transaction.date.desc())
 
 

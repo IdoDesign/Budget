@@ -5,9 +5,11 @@
   
   <h1 class="display-4">Hello, {% if session['user'] %}{{session['user']['name']}}{%else%}Guest{%endif%}!</h1>
   
-  <p class="lead">This is a simple app that is main target is to make you track all of your expences.</p>
+  <p class="lead">This is a simple app that is main target is to help you track all of your expences.</p>
   <hr class="my-4">
-  <p>It uses a Linode cloud ubunto server that runs NGINX and Gunicorn in order to run with flask.</p>
+  <p>The app uses an AWS ubunto server that runs NGINX and Gunicorn in order to run with flask,
+    the app is based on Flask SQLAlchemy and uses a postgresql database
+  </p>
   <p class="lead">
     <a href="/add_transactions"><button class="btn btn-danger btn-lg m-1">Add an Expense</button></a>
     <a href="/all"><button class="btn btn-outline-danger btn-lg m-1">See all Expences</button></a>

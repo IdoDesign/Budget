@@ -31,5 +31,5 @@ def add_transaction():
 @transactions.route('/all')
 @login_required
 def all_transactions():
-    transactions= Transaction.get_by_user(flask.session['user']['_id'])
+    transactions= Transaction.get_by_user_sorted(flask.session['user']['_id'])
     return flask.render_template('all_transactions.html', transactions=transactions)
