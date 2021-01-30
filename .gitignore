@@ -1,5 +1,9 @@
 .venv*
-migrations*
-*.csv
 *__pycache__*
 *.pyc
+*test.py
+*.venv/*
+*__pycache*
+*/__pycache__/*
+.gitignore
+.vscode/*
