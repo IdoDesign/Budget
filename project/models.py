@@ -1,8 +1,8 @@
 import uuid
-from project.common.utils import Utils
+from common.utils import Utils
 from flask_sqlalchemy import SQLAlchemy
-from project import db
 
+db = SQLAlchemy()
 
 #we'll add classes here
 class User(db.Model):
@@ -70,11 +70,17 @@ class Transaction(db.Model):
         self.description = description
         self.category = category
         self.user_id = user_id
-    
+
+    def save(self):
+        db.session.add(self)
+        db.commit()
+
     @staticmethod
     def get_by_user(user_id):
-        return Transaction.query.filter_by(user_id=user_id)
+        return db.session.query(Transaction, Category).filter_by(user_id=user_id).join(Category)
         
     @staticmethod
     def get_by_id(_id):
         return Transaction.query.filter_by(_id=_id).first()
+
+
