@@ -1,6 +1,5 @@
 
-from project import db
-from project.models import User, Category, Transaction
+from models import app, User, Category, Transaction
 import uuid
 import csv
 
