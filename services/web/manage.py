@@ -16,6 +16,11 @@ def seed_db():
     populateData.create_user()
     populateData.populateCategories()
     db.session.commit()
+    
+@cli.command("add_transactions")
+def add_transactions():
+    populateData.populateTransactions()
+    db.session.commit()
 
 
 if __name__ == "__main__":
