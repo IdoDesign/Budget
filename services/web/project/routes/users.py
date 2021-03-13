@@ -1,5 +1,5 @@
 import flask
-from models import User
+from .. models import User
 
 
 users = flask.Blueprint('users', __name__)

@@ -1,8 +1,8 @@
 from functools import wraps
 from datetime import datetime
 import flask
-from models import Category
-from models import Transaction
+from .. models import Category
+from .. models import Transaction
 
 transactions = flask.Blueprint('transactions', __name__)
 

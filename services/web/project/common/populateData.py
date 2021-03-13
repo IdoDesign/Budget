@@ -1,8 +1,8 @@
 
-from models import app, User, Category, Transaction
+from .. models import User, Category, Transaction
 import uuid
 import csv
-
+from .. import db
 def create_user():
     user = User(
         _id='62215d2232864736b1a9aa0be99e21d8',
@@ -14,7 +14,6 @@ def create_user():
 
 
 def populateCategories():
-
     with open ('categories.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -29,5 +28,3 @@ def populateTransactions():
         for row in reader:
             db.session.add(Transaction(_id=row['_id'], date=row["date"], amount=(row["amount"])*(-1), description= row["description"], category=row["category"], user_id=row["user_id"]))
     db.session.commit()
-
-populateTransactions()

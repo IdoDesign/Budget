@@ -1,8 +1,8 @@
 import uuid
-from common.utils import Utils
+from .common.utils import Utils
 from flask_sqlalchemy import SQLAlchemy
+from . import db
 
-db = SQLAlchemy()
 
 #we'll add classes here
 class User(db.Model):
