@@ -73,7 +73,7 @@ class Transaction(db.Model):
 
     def save(self):
         db.session.add(self)
-        db.commit()
+        db.session.commit()
 
     @staticmethod
     def get_by_user(user_id):
