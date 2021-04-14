@@ -15,6 +15,7 @@ def create_db():
 def seed_db():
     populateData.create_user()
     populateData.populateCategories()
+    populateData.populateTransactions()
     db.session.commit()
     
 @cli.command("add_transactions")
