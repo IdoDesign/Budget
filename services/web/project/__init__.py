@@ -1,4 +1,3 @@
-
 import uuid
 import flask
 from flask_sqlalchemy import SQLAlchemy
@@ -17,9 +16,5 @@ app.register_blueprint(transactions)
 app.register_blueprint(users)
 
 
-@app.route('/')
-def home():
-    return flask.render_template('home.html')
-'''
 if __name__ == '__main__':
-    app.run(debug=True)'''
+    app.run(debug=True)

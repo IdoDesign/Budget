@@ -1,11 +1,34 @@
 from functools import wraps
 from datetime import datetime
+import random
 import flask
 from .. models import Category
 from .. models import Transaction
 
 transactions = flask.Blueprint('transactions', __name__)
+COLORS = [
+    "#330C2F",
+    "#1A317F",
+    "#0056CF",
+    "#0076E7",
+    "#005fe4",
+    "#0095ff",
+    "#27B1E2",
+    "#4ECDC4",
+    "#7AD9AC",
+    "#A5E593",
+    "#E7F76F",
+    "#FCFC62",
+    "#FEC731",
+    "#ff9100",
+    "#EE6352",
+    "#ff0000",
+    "#DA3E52",
+    "#FF335A",
+    "#FF66B3",
+    "#FECEE9"
 
+]
 def login_required(f):
   @wraps(f)
   def decorated_function(*args, **kwargs):
@@ -33,3 +56,28 @@ def add_transaction():
 def all_transactions():
     transactions= Transaction.get_by_user_sorted(flask.session['user']['_id'])
     return flask.render_template('all_transactions.html', transactions=transactions)
+
+@transactions.route('/')
+@login_required
+def summary():
+    sum_by_category= Transaction.group_by_category(flask.session['user']['_id'])
+    sum_by_month= Transaction.group_by_month(flask.session['user']['_id'])
+
+    doughnut_data = {
+        'labels': sum_by_category['labels'],
+        'datasets':[{
+            'label': 'Sum',
+            'data': sum_by_category['values'],
+            'backgroundColor': COLORS
+        }]
+    }
+    bar_data= {
+        'labels': sum_by_month['labels'],
+        'datasets':[{
+            'label': 'Sum',
+            'data': sum_by_month['values'],
+            'backgroundColor': COLORS
+        }]
+    }
+
+    return flask.render_template('home.html', doughnut_data=doughnut_data, bar_data=bar_data)

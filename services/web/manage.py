@@ -4,7 +4,6 @@ from project.common import populateData
 cli = FlaskGroup(app)
 
 
-
 @cli.command("create_db")
 def create_db():
     db.drop_all()
@@ -17,12 +16,6 @@ def seed_db():
     populateData.populateCategories()
     populateData.populateTransactions()
     db.session.commit()
-    
-@cli.command("add_transactions")
-def add_transactions():
-    populateData.populateTransactions()
-    db.session.commit()
-
 
 if __name__ == "__main__":
     cli()
