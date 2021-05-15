@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-6 py-1">
+        <div class="card-header">
+            <h2 class="text-center">Expences By Category</h2>
+        </div>
+        <div class="card-body">
+            <canvas id="doughnut" style="vertical-align: middle;"></canvas>
+        </div>
+        
+    </div>
+    <div class="col-md-6 py-1">
+        <div class="card-header">
+            <h2 class="text-center">Expences By Month</h2>
+        </div>
+        <div class="card-body">
+            <canvas id="bar" style="vertical-align: middle;"></canvas>
+        </div>
+</div>
+
+
+<script>
+    var doughnut_chart = new Chart(document.getElementById("doughnut"),
+        {
+            type:"doughnut",
+            data:{{ doughnut_data | safe}},
+            options:{
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    },
+                    maintainAspectRatio: false
+            }
+        });
+        var bar_chart = new Chart(document.getElementById("bar"),
+        {
+            type:"bar",
+            data:{{ bar_data | safe}},
+            options:{
+                    legend: {
+                        display: false
+                    },
+                    maintainAspectRatio: true
+            }
+        });
+</script>
+
+
+
+{% endblock %}

@@ -87,4 +87,33 @@ class Transaction(db.Model):
     def get_by_user_sorted(user_id):
         return db.session.query(Transaction, Category).filter_by(user_id=user_id).join(Category).order_by(Transaction.date.desc())
 
+    @staticmethod
+    def group_by_category(user_id):
+        sum_by_category =  db.session.query(db.func.sum(Transaction.amount).label('sum'), Category.name).filter_by(user_id=user_id).group_by(Category._id).join(Category)
 
+        amounts = []
+        categories = []
+
+        for category in sum_by_category:
+            amounts.append(category.sum)
+            categories.append(category.name)
+        return {
+            'labels': categories,
+            'values': amounts
+            }
+    @staticmethod
+    def group_by_month(user_id):
+        month = db.func.date_trunc('month', Transaction.date)
+        sum_by_Month = db.session.query(month.label('month'), db.func.sum(Transaction.amount).label('sum')).filter_by(user_id=user_id).group_by(month).order_by(month.desc())
+        
+        amounts = []
+        months = []
+
+        for month_sum in sum_by_Month:
+            amounts.append(month_sum.sum)
+            months.append(month_sum.month.strftime("%b"))
+        
+        return {
+            'labels': months,
+            'values': amounts
+            }
