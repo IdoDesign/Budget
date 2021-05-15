@@ -9,7 +9,7 @@ services:
     expose:
       - 5000
     env_file:
-      - ./.env.prod
+      - ./.env.prod  
 
   nginx:
     build: ./services/nginx
@@ -17,3 +17,9 @@ services:
       - 1337:80
     depends_on: 
       - web
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - ./services/db/postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
