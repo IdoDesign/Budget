@@ -12,7 +12,7 @@ def register():
         register = User.register(name, email, password)
         if register:
             flask.session['user'] = {'_id': register['_id'], 'name': register['name']}
-            return flask.redirect('/')
+            return flask.redirect('/home')
     return flask.render_template('register.html')
     
 
@@ -24,10 +24,11 @@ def login():
         login = User.is_login_valid(email, password)
         if login:
             flask.session['user'] = {'_id': login._id, 'name': login.name}
-            return flask.redirect('/')
+            return flask.redirect('/home')
+    
     return flask.render_template('login.html')
 
 @users.route('/logout')
 def logout_user():
     flask.session['user']=None
-    return flask.redirect('/')
+    return flask.redirect('/home')

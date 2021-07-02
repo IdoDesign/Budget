@@ -15,7 +15,7 @@
     <a href="/all"><button class="btn btn-outline-danger btn-lg m-1">See all Expences</button></a>
   </p>
 </div>
-
+{% if session['user'] %}
 <div class="row my-4">
   <div class="col-md-6 py-1">
       <div class="card-header">
@@ -61,4 +61,5 @@
           }
       });
 </script>
+{%endif%}
 {% endblock %}

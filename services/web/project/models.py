@@ -46,6 +46,10 @@ class Category(db.Model):
         self._id = uuid.uuid4().hex if _id is None else _id
         self.name = name
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        
     @staticmethod
     def all():
         return Category.query.all()

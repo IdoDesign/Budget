@@ -57,9 +57,10 @@ def all_transactions():
     transactions= Transaction.get_by_user_sorted(flask.session['user']['_id'])
     return flask.render_template('all_transactions.html', transactions=transactions)
 
-@transactions.route('/')
-@login_required
+@transactions.route('/home')
 def summary():
+    if flask.session['user'] is None:
+        return flask.render_template('home.html')
     sum_by_category= Transaction.group_by_category(flask.session['user']['_id'])
     sum_by_month= Transaction.group_by_month(flask.session['user']['_id'])
 
