@@ -8,12 +8,12 @@ cli = FlaskGroup(app)
 def create_db():
     db.drop_all()
     db.create_all()
+    populateData.populateCategories()
     db.session.commit()
 
 @cli.command("seed_db")
 def seed_db():
     populateData.create_user()
-    populateData.populateCategories()
     populateData.populateTransactions()
     db.session.commit()
 
