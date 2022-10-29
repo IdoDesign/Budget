@@ -28,7 +28,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
-        {% if session['user'] %}
+        {% if current_user.is_authenticated %}
         <li class="nav-item active">
           <a class="nav-link text-white" href="/add_transactions">Add an expence<span class="sr-only">(current)</span></a>
         </li>
@@ -44,7 +44,7 @@
         </li>
         {% endif %}
       </ul>
-      {% if session['user'] %}
+      {% if current_user.is_authenticated %}
       <span class="navbar-text ">
         <button class="btn btn-danger btn-sm"><a href="/logout">Logout</a></button>
       </span>
