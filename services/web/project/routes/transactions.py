@@ -1,6 +1,5 @@
 from functools import wraps
 from datetime import datetime
-import random
 import flask
 from .. models import Category
 from .. models import Transaction
@@ -76,3 +75,29 @@ def summary():
         }
 
     return flask.render_template('home.html', doughnut_data=doughnut_data, bar_data=bar_data)
+
+@transactions.route('/delete/<string:_id>', methods=["POST"])
+@login_required
+def delete(_id):
+    transaction = Transaction.get_by_id(_id)
+    try:
+        transaction.remove()
+        return flask.redirect('/all')
+    except:
+        return("Error")
+
+@transactions.route('/update/<string:_id>', methods=["POST", "GET"])
+@login_required
+def update(_id):
+    trans = Transaction.get_by_id(_id)
+    categories = Category.all()
+    if flask.request.method == "POST":
+        trans.name = flask.request.form['description']
+        trans.amount = flask.request.form['amount']
+        trans.category = flask.request.form['category']
+        try:
+            trans.update()
+            return flask.redirect('/all')
+        except:
+            return("Error")
+    return flask.render_template("update_transaction.html", trans=trans, categories=categories)

@@ -27,7 +27,6 @@ class User(UserMixin, db.Model):
     def get_id(self):
            return (self._id)
 
-
 class Category(db.Model):
     __tablename__= 'categories'
     _id = db.Column(db.String(250), primary_key=True)
@@ -69,6 +68,13 @@ class Transaction(db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def remove(self):
+        db.session.delete(self)
         db.session.commit()
 
     @staticmethod
